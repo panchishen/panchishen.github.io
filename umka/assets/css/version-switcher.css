@@ -1,0 +1,9 @@
+/* Design version switcher — fixed in the bottom-left corner */
+.version-switcher{position:fixed;left:16px;bottom:16px;z-index:900;display:flex;align-items:center;gap:4px;padding:6px;border-radius:999px;background:rgba(12,22,52,.92);box-shadow:0 12px 32px -12px rgba(12,22,52,.6);font-family:system-ui,-apple-system,'Segoe UI',sans-serif;font-size:13px;line-height:1;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.version-switcher__title{color:#9DB0D8;padding:0 8px 0 10px;font-weight:500}
+.version-switcher__link{display:inline-flex;align-items:center;min-height:36px;padding:0 14px;border-radius:999px;color:#fff;text-decoration:none;font-weight:600;white-space:nowrap}
+.version-switcher__link:hover{background:rgba(255,255,255,.12);color:#fff}
+.version-switcher__link.is-active{background:#fff;color:#0C1634}
+.version-switcher__link:focus-visible{outline:2px solid #FFB020;outline-offset:2px}
+@media (max-width:600px){.version-switcher{left:8px;bottom:8px}.version-switcher__title{display:none}}
+@media print{.version-switcher{display:none}}
