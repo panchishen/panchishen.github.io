@@ -1,8 +1,15 @@
-/* Staggered reveal on scroll (classes are set by reveal.js) */
+/* Staggered reveal on scroll.
+   html.reveal-on is set by an inline script in <head> (before the first paint),
+   html.reveal-ready and the item classes are set by reveal.js. */
 :root{--reveal-ease:cubic-bezier(0.23, 1, 0.32, 1)}
-.reveal-on .reveal-item{opacity:0;transform:translateY(20px);transition:opacity 600ms var(--reveal-ease),transform 600ms var(--reveal-ease);transition-delay:calc(var(--reveal-i, 0) * 60ms)}
-.reveal-on .reveal-item.is-in{opacity:1;transform:none}
+/* until reveal.js has marked the items, keep sections hidden so nothing flashes */
+.reveal-on:not(.reveal-ready) .p > section,
+.reveal-on:not(.reveal-ready) .p > footer{opacity:0}
+/* hiding is instant; the transition lives only on .is-in, so items animate in, never out */
+.reveal-on .reveal-item{opacity:0;transform:translateY(28px)}
+.reveal-on .reveal-item.is-in{opacity:1;transform:none;transition:opacity 700ms var(--reveal-ease),transform 700ms var(--reveal-ease);transition-delay:calc(var(--reveal-i, 0) * 70ms)}
 @media (prefers-reduced-motion:reduce){
-  .reveal-on .reveal-item{transform:none;transition:opacity 300ms ease;transition-delay:calc(var(--reveal-i, 0) * 30ms)}
+  .reveal-on .reveal-item{transform:none}
+  .reveal-on .reveal-item.is-in{transition:opacity 300ms ease;transition-delay:calc(var(--reveal-i, 0) * 30ms)}
 }
-@media print{.reveal-on .reveal-item{opacity:1;transform:none}}
+@media print{.reveal-on .reveal-item,.reveal-on .p > section,.reveal-on .p > footer{opacity:1 !important;transform:none !important}}

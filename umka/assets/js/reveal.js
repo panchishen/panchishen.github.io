@@ -6,9 +6,10 @@
 (function () {
   'use strict';
 
-  if (!('IntersectionObserver' in window)) return;
+  var html = document.documentElement;
+  if (!('IntersectionObserver' in window)) { html.classList.remove('reveal-on'); return; }
 
-  var MAX_STEPS = 8;  // stagger step is 60ms (see reveal.css); later items don't wait longer
+  var MAX_STEPS = 8;  // stagger step is 70ms (see reveal.css); later items don't wait longer
 
   // A container whose children are shown as a row of cards
   function isGroup(el) {
@@ -40,9 +41,8 @@
   }
 
   var sections = Array.prototype.slice.call(document.querySelectorAll('.p > section, .p > footer'));
-  if (!sections.length) return;
-
-  document.documentElement.classList.add('reveal-on');
+  if (!sections.length) { html.classList.remove('reveal-on'); return; }
+  html.classList.add('reveal-on');
 
   sections.forEach(function (section) {
     targetsOf(section).forEach(function (el, i) {
@@ -51,6 +51,11 @@
       el.addEventListener('transitionend', finish);
     });
   });
+
+  // sections become visible, their items are now hidden individually;
+  // force a style flush so the items start from the hidden state and really transition
+  html.classList.add('reveal-ready');
+  void document.body.offsetHeight;
 
   var observer = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
@@ -66,6 +71,6 @@
 
   // safety net: never leave content hidden (e.g. printing, odd viewports)
   window.addEventListener('beforeprint', function () {
-    document.documentElement.classList.remove('reveal-on');
+    html.classList.remove('reveal-on');
   });
 })();
