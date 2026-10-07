@@ -1,0 +1,17 @@
+<div class="order-modal" id="orderModal" role="dialog" aria-modal="true" aria-labelledby="orderTitle" hidden>
+<div class="order-backdrop" data-order-close></div>
+<div class="order-box">
+<button type="button" class="order-close" data-order-close aria-label="Закрыть">×</button>
+<h3 class="order-title" id="orderTitle">Заказать клининг</h3>
+<p class="order-lead">Оставьте телефон — менеджер перезвонит и&nbsp;согласует детали.</p>
+<form class="order-form" id="orderForm" novalidate>
+<label class="order-field">Имя<input type="text" name="name" autocomplete="name"></label>
+<label class="order-field">Телефон<input type="tel" name="phone" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></label>
+<input type="hidden" name="details">
+<div class="order-details" data-order-details hidden></div>
+<label class="order-agree"><input type="checkbox" name="agree" required>Согласен на&nbsp;обработку персональных данных</label>
+<button class="order-submit" type="submit">Отправить заявку</button>
+<p class="order-status" role="status" aria-live="polite"></p>
+</form>
+</div>
+</div>

@@ -1,0 +1,60 @@
+<div class="calc" data-calc>
+<div class="card calc-form">
+<div><label class="lbl" for="cleaningSquare">Площадь квартиры м²:</label>
+<div class="step"><button type="button" class="calc-minus" data-count="appart-square" aria-label="Уменьшить площадь">−</button><input class="calc-input" data-count="appart-square" type="number" id="cleaningSquare" value="40" min="1" inputmode="numeric"><button type="button" class="calc-plus" data-count="appart-square" aria-label="Увеличить площадь">+</button></div></div>
+<div><span class="lbl" id="cleaningTypeLabel">Тип уборки:</span>
+<div class="seg" role="radiogroup" aria-labelledby="cleaningTypeLabel">
+<label class="on"><input type="radio" name="cleaningType" value="support" checked>Поддерживающая</label>
+<label><input type="radio" name="cleaningType" value="general">Генеральная</label>
+<label><input type="radio" name="cleaningType" value="postrenovation_new">После ремонта (новая квартира)</label>
+<label><input type="radio" name="cleaningType" value="postrenovation_lived">После ремонта (ранее жилая квартира)</label>
+</div></div>
+<div class="acc">
+<button class="acc-h" type="button" data-acc aria-expanded="false" aria-controls="calcWindows">Окна <span class="acc-x" aria-hidden="true">+</span></button>
+<div class="acc-b" id="calcWindows" hidden>
+<div class="acc-row">
+<div><label class="lbl" for="smallWindow">Окна площадью до 4 м² (шт)</label><div class="step"><button type="button" class="calc-minus" data-count="small-window" aria-label="Меньше">−</button><input class="calc-input" data-count="small-window" type="number" id="smallWindow" value="0" min="0" inputmode="numeric"><button type="button" class="calc-plus" data-count="small-window" aria-label="Больше">+</button></div></div>
+<div><label class="lbl" for="bigWindow">Окна площадью больше 4 м² (м²)</label><div class="step"><button type="button" class="calc-minus" data-count="big-window" aria-label="Меньше">−</button><input class="calc-input" data-count="big-window" type="number" id="bigWindow" value="0" min="4" inputmode="numeric"><button type="button" class="calc-plus" data-count="big-window" aria-label="Больше">+</button></div></div>
+</div>
+</div>
+<button class="acc-h" type="button" data-acc aria-expanded="false" aria-controls="calcDry">Химчистка <span class="acc-x" aria-hidden="true">+</span></button>
+<div class="acc-b" id="calcDry" hidden>
+<div class="chips calc-dry">
+<label class="chip"><input type="checkbox" id="curtains" value="curtains">Шторы</label>
+<label class="chip"><input type="checkbox" id="bed" value="bed">Кровать (изголовье+царги)</label>
+<label class="chip"><input type="checkbox" id="mattress" value="mattress">Матрас</label>
+<label class="chip"><input type="checkbox" id="carpet" value="carpet">Ковры/Ковролин</label>
+<label class="chip"><input type="checkbox" id="sofa" value="sofa">Диван</label>
+<label class="chip"><input type="checkbox" id="chair" value="chair">Стулья/Офисные кресла</label>
+<label class="chip"><input type="checkbox" id="armchair" value="armchair">Кресло</label>
+<label class="chip"><input type="checkbox" id="pillow" value="pillow">Подушка</label>
+</div>
+</div>
+<button class="acc-h" type="button" data-acc aria-expanded="false" aria-controls="calcExtra">Дополнительно <span class="acc-x" aria-hidden="true">+</span></button>
+<div class="acc-b" id="calcExtra" hidden>
+<div class="ext-row"><label><input type="checkbox" id="hourlyCleaner">Почасовая работа клинера (ч.)</label><div class="step sm"><button type="button" class="calc-minus" data-count="hourly-cleaner" aria-label="Меньше">−</button><input class="calc-input" data-count="hourly-cleaner" type="number" value="0" min="0" aria-label="Часы"><button type="button" class="calc-plus" data-count="hourly-cleaner" aria-label="Больше">+</button></div></div>
+<div class="ext-row"><label><input type="checkbox" id="ironing">Глажка белья (ч.)</label><div class="step sm"><button type="button" class="calc-minus" data-count="ironing" aria-label="Меньше">−</button><input class="calc-input" data-count="ironing" type="number" value="0" min="0" aria-label="Часы"><button type="button" class="calc-plus" data-count="ironing" aria-label="Больше">+</button></div></div>
+<div class="ext-row"><label><input type="checkbox" id="fridge">Мойка холодильника (шт.)</label><div class="step sm"><button type="button" class="calc-minus" data-count="fridge" aria-label="Меньше">−</button><input class="calc-input" data-count="fridge" type="number" value="0" min="0" aria-label="Количество"><button type="button" class="calc-plus" data-count="fridge" aria-label="Больше">+</button></div></div>
+<div class="ext-row"><label><input type="checkbox" id="oven">Мойка духовки (шт.)</label><div class="step sm"><button type="button" class="calc-minus" data-count="oven" aria-label="Меньше">−</button><input class="calc-input" data-count="oven" type="number" value="0" min="0" aria-label="Количество"><button type="button" class="calc-plus" data-count="oven" aria-label="Больше">+</button></div></div>
+<div class="ext-row"><label><input type="checkbox" id="blinds">Мойка жалюзи (шт.)</label><div class="step sm"><button type="button" class="calc-minus" data-count="blinds" aria-label="Меньше">−</button><input class="calc-input" data-count="blinds" type="number" value="0" min="0" aria-label="Количество"><button type="button" class="calc-plus" data-count="blinds" aria-label="Больше">+</button></div></div>
+<div class="ext-row"><label><input type="checkbox" id="chandelierSmall">Мойка люстры до 50 см (шт.)</label><div class="step sm"><button type="button" class="calc-minus" data-count="chandelier-small" aria-label="Меньше">−</button><input class="calc-input" data-count="chandelier-small" type="number" value="0" min="0" aria-label="Количество"><button type="button" class="calc-plus" data-count="chandelier-small" aria-label="Больше">+</button></div></div>
+<div class="ext-row"><label><input type="checkbox" id="chandelierBig">Мойка люстры более 50 см (шт.)</label><div class="step sm"><button type="button" class="calc-minus" data-count="chandelier-big" aria-label="Меньше">−</button><input class="calc-input" data-count="chandelier-big" type="number" value="0" min="0" aria-label="Количество"><button type="button" class="calc-plus" data-count="chandelier-big" aria-label="Больше">+</button></div></div>
+<div class="ext-row"><label><input type="checkbox" id="trash">Вывоз мусора (м³)</label><div class="step sm"><button type="button" class="calc-minus" data-count="trash" aria-label="Меньше">−</button><input class="calc-input" data-count="trash" type="number" value="0" min="0" aria-label="Объём"><button type="button" class="calc-plus" data-count="trash" aria-label="Больше">+</button></div></div>
+<div class="ext-row"><label><input type="checkbox" id="animalHair">Уборка шерсти животных (м²)</label></div>
+<div class="ext-row"><label><input type="checkbox" id="vipCleaning">VIP уборка (м²)</label></div>
+<div class="ext-row"><label><input type="checkbox" id="nightCleaning">Ночная уборка (м²)</label></div>
+</div>
+</div>
+</div>
+<div class="sum" aria-live="polite">
+<div style="font-size: 14px; color: #C9D3EE; margin-bottom: 8px">Ваш расчёт</div>
+<div class="k">Площадь<b><span data-out="square">40</span>&nbsp;м²</b></div>
+<div class="k">Тип уборки<b data-out="type">Поддерживающая</b></div>
+<div class="k">Количество часов:<b><span data-out="hours">2-3</span>&nbsp;ч</b></div>
+<div class="k">Количество клинеров:<b><span data-out="workers">1</span>&nbsp;чел</b></div>
+<div class="k" style="border-bottom: 0"><button type="button" class="info-toggle" aria-expanded="false" aria-controls="calcInfo">Что входит ⓘ</button></div>
+<div class="info-box" id="calcInfo" data-out="info" hidden></div>
+<div class="total"><small>от</small>&nbsp;<span data-out="price">4000</span>&nbsp;<small>₽</small></div>
+<a class="btn btn-p" href="#order" data-order="calc" style="width: 100%; margin-top: 20px">Заказать клининг</a>
+</div>
+</div>
