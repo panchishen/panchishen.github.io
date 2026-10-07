@@ -1,0 +1,8 @@
+/* Staggered reveal on scroll (classes are set by reveal.js) */
+:root{--reveal-ease:cubic-bezier(0.23, 1, 0.32, 1)}
+.reveal-on .reveal-item{opacity:0;transform:translateY(20px);transition:opacity 600ms var(--reveal-ease),transform 600ms var(--reveal-ease);transition-delay:calc(var(--reveal-i, 0) * 60ms)}
+.reveal-on .reveal-item.is-in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .reveal-on .reveal-item{transform:none;transition:opacity 300ms ease;transition-delay:calc(var(--reveal-i, 0) * 30ms)}
+}
+@media print{.reveal-on .reveal-item{opacity:1;transform:none}}
