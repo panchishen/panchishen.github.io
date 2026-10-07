@@ -1,0 +1,9 @@
+# Umka redesign preview (/umka/) is not for search engines.
+# Pages carry <meta name="robots" content="noindex, nofollow">, so they stay crawlable
+# for that tag to be seen; form fragments and assets have no <head> and are blocked here.
+User-agent: *
+Disallow: /umka/forms/
+Disallow: /umka/assets/
+Disallow: /umka/v1/calculator.html
+Disallow: /umka/v2/calculator.html
+Disallow: /umka/v2/quick-form.html
