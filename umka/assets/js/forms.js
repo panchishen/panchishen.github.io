@@ -117,7 +117,7 @@
   function countInput(name) { return $('input.calc-input[data-count="' + name + '"]'); }
 
   function loadFragment(el) {
-    return fetch(el.getAttribute('data-fragment'))
+    return fetch(el.getAttribute('data-fragment'), { cache: 'no-cache' })
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
       .then(function (html) { el.innerHTML = html; el.removeAttribute('data-fragment'); })
       .catch(function () { el.textContent = 'Не удалось загрузить форму. Обновите страницу.'; });
