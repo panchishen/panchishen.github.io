@@ -33,3 +33,12 @@
 .calc-picked__list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
 .calc-picked__list li{display:flex;justify-content:space-between;gap:16px;font-size:14px;color:#B9CCE6}
 .calc-picked__list b{color:#fff;font-weight:500;text-align:right}
+/* quick form: the whole field tile is clickable, no focus frame on mouse click */
+.qc label{position:relative;min-height:62px;box-sizing:border-box;cursor:pointer;transition:background .15s}
+.qc label:hover{background:#EAF2FB}
+.qc label:focus-within{background:#fff}
+.qc input,.qc select{position:absolute;inset:0;width:100%;height:100%;box-sizing:border-box;padding:28px 18px 8px;border-radius:18px;outline:none;-webkit-appearance:none;-moz-appearance:none;appearance:none;background:transparent;cursor:pointer}
+.qc input{cursor:text}
+.qc select{padding-right:44px}
+.qc input:focus,.qc select:focus,.qc input:focus-visible,.qc select:focus-visible{outline:none;box-shadow:none}
+.qc label:has(select)::after{content:"";position:absolute;right:22px;top:50%;width:8px;height:8px;border-right:2px solid #10264A;border-bottom:2px solid #10264A;transform:translateY(-30%) rotate(45deg);pointer-events:none}
