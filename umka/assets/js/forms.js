@@ -181,6 +181,61 @@
     });
   }
 
+  // What is chosen inside the collapsible sections, for the price block
+  function collectSelection() {
+    var groups = [];
+    var small = toInt($('#smallWindow').value), big = toInt($('#bigWindow').value);
+    var windows = [];
+    if (small > 0) windows.push('до 4 м² — ' + small + ' шт');
+    if (big > 0) windows.push('больше 4 м² — ' + big + ' м²');
+    if (windows.length) groups.push({ id: 'calcWindows', title: 'Окна', items: windows });
+
+    var dry = $all('.calc-dry input[type=checkbox]').filter(function (cb) { return cb.checked; })
+      .map(function (cb) { return DRY_NAMES[cb.value]; });
+    if (dry.length) groups.push({ id: 'calcDry', title: 'Химчистка', items: dry });
+
+    var extras = [];
+    Object.keys(EXTRAS_COUNTED).forEach(function (id) {
+      var cfg = EXTRAS_COUNTED[id], qty = toInt(countInput(cfg[0]).value);
+      if ($('#' + id).checked && qty > 0) extras.push(cfg[2] + ' — ' + qty + ' ' + cfg[3]);
+    });
+    Object.keys(EXTRAS_RATE).forEach(function (id) {
+      if ($('#' + id).checked) extras.push(EXTRAS_RATE[id][1]);
+    });
+    if (extras.length) groups.push({ id: 'calcExtra', title: 'Дополнительно', items: extras });
+    return groups;
+  }
+
+  function renderSelection() {
+    var groups = collectSelection();
+    $all('[data-selection]').forEach(function (box) {
+      var list = $('[data-out="selection"]', box);
+      list.textContent = '';
+      groups.forEach(function (g) {
+        var li = document.createElement('li');
+        var name = document.createElement('span');
+        name.textContent = g.title;
+        li.appendChild(name);
+        var values = document.createElement('b');
+        g.items.forEach(function (text, i) {
+          if (i) values.appendChild(document.createElement('br'));
+          values.appendChild(document.createTextNode(text));
+        });
+        li.appendChild(values);
+        list.appendChild(li);
+      });
+      box.hidden = !groups.length;
+    });
+    // counters on the section headers / tabs
+    ['calcWindows', 'calcDry', 'calcExtra'].forEach(function (id) {
+      var g = groups.filter(function (x) { return x.id === id; })[0];
+      $all('[data-badge="' + id + '"]').forEach(function (b) {
+        b.textContent = g ? g.items.length : '';
+        b.hidden = !g;
+      });
+    });
+  }
+
   function calculate() {
     if (!$('#cleaningSquare')) return;
     var base = getBaseCleaning();
@@ -196,6 +251,7 @@
     $all('input[name="cleaningType"]').forEach(function (r) {
       r.closest('label').classList.toggle('on', r.checked);
     });
+    renderSelection();
     syncQuickForm();
   }
 

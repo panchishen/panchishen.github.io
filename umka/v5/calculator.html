@@ -10,9 +10,9 @@
 </div></div>
 <div>
 <div class="seg" role="tablist" aria-label="Дополнительные услуги">
-<button type="button" class="on" role="tab" aria-selected="true" aria-controls="calcWindows" data-tab="calcWindows">Окна</button>
-<button type="button" role="tab" aria-selected="false" aria-controls="calcDry" data-tab="calcDry">Химчистка</button>
-<button type="button" role="tab" aria-selected="false" aria-controls="calcExtra" data-tab="calcExtra">Дополнительно</button>
+<button type="button" class="on" role="tab" aria-selected="true" aria-controls="calcWindows" data-tab="calcWindows">Окна <em class="sec-badge" data-badge="calcWindows" hidden></em></button>
+<button type="button" role="tab" aria-selected="false" aria-controls="calcDry" data-tab="calcDry">Химчистка <em class="sec-badge" data-badge="calcDry" hidden></em></button>
+<button type="button" role="tab" aria-selected="false" aria-controls="calcExtra" data-tab="calcExtra">Дополнительно <em class="sec-badge" data-badge="calcExtra" hidden></em></button>
 </div>
 <div class="tab-panel" id="calcWindows" role="tabpanel">
 <div class="win-row">
@@ -54,6 +54,10 @@
 <div class="c" style="font-size: 20px; font-weight: 600; margin-bottom: 8px">Итого</div>
 <div class="k">Количество часов:<b><span data-out="hours">2-3</span>&nbsp;ч</b></div>
 <div class="k">Количество клинеров:<b><span data-out="workers">1</span>&nbsp;чел</b></div>
+<div class="calc-picked" data-selection hidden>
+<div class="calc-picked__title">Выбрано</div>
+<ul class="calc-picked__list" data-out="selection"></ul>
+</div>
 <div class="k" style="border-bottom: 0"><button type="button" class="info-toggle" aria-expanded="false" aria-controls="calcInfo">Что входит ⓘ</button></div>
 <div class="info-box" id="calcInfo" data-out="info" hidden></div>
 <div class="tot"><small>от</small>&nbsp;<span data-out="price">4000</span>&nbsp;<small>₽</small></div>

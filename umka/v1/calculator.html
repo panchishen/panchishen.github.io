@@ -10,14 +10,14 @@
 <label><input type="radio" name="cleaningType" value="postrenovation_lived">После ремонта (ранее жилая квартира)</label>
 </div></div>
 <div class="acc">
-<button class="acc-h" type="button" data-acc aria-expanded="false" aria-controls="calcWindows">Окна <span class="acc-x" aria-hidden="true">+</span></button>
+<button class="acc-h" type="button" data-acc aria-expanded="false" aria-controls="calcWindows"><span>Окна <em class="sec-badge" data-badge="calcWindows" hidden></em></span> <span class="acc-x" aria-hidden="true">+</span></button>
 <div class="acc-b" id="calcWindows" hidden>
 <div class="acc-row">
 <div><label class="lbl" for="smallWindow">Окна площадью до 4 м² (шт)</label><div class="step"><button type="button" class="calc-minus" data-count="small-window" aria-label="Меньше">−</button><input class="calc-input" data-count="small-window" type="number" id="smallWindow" value="0" min="0" inputmode="numeric"><button type="button" class="calc-plus" data-count="small-window" aria-label="Больше">+</button></div></div>
 <div><label class="lbl" for="bigWindow">Окна площадью больше 4 м² (м²)</label><div class="step"><button type="button" class="calc-minus" data-count="big-window" aria-label="Меньше">−</button><input class="calc-input" data-count="big-window" type="number" id="bigWindow" value="0" min="4" inputmode="numeric"><button type="button" class="calc-plus" data-count="big-window" aria-label="Больше">+</button></div></div>
 </div>
 </div>
-<button class="acc-h" type="button" data-acc aria-expanded="false" aria-controls="calcDry">Химчистка <span class="acc-x" aria-hidden="true">+</span></button>
+<button class="acc-h" type="button" data-acc aria-expanded="false" aria-controls="calcDry"><span>Химчистка <em class="sec-badge" data-badge="calcDry" hidden></em></span> <span class="acc-x" aria-hidden="true">+</span></button>
 <div class="acc-b" id="calcDry" hidden>
 <div class="chips calc-dry">
 <label class="chip"><input type="checkbox" id="curtains" value="curtains">Шторы</label>
@@ -30,7 +30,7 @@
 <label class="chip"><input type="checkbox" id="pillow" value="pillow">Подушка</label>
 </div>
 </div>
-<button class="acc-h" type="button" data-acc aria-expanded="false" aria-controls="calcExtra">Дополнительно <span class="acc-x" aria-hidden="true">+</span></button>
+<button class="acc-h" type="button" data-acc aria-expanded="false" aria-controls="calcExtra"><span>Дополнительно <em class="sec-badge" data-badge="calcExtra" hidden></em></span> <span class="acc-x" aria-hidden="true">+</span></button>
 <div class="acc-b" id="calcExtra" hidden>
 <div class="ext-row"><label><input type="checkbox" id="hourlyCleaner">Почасовая работа клинера (ч.)</label><div class="step sm"><button type="button" class="calc-minus" data-count="hourly-cleaner" aria-label="Меньше">−</button><input class="calc-input" data-count="hourly-cleaner" type="number" value="0" min="0" aria-label="Часы"><button type="button" class="calc-plus" data-count="hourly-cleaner" aria-label="Больше">+</button></div></div>
 <div class="ext-row"><label><input type="checkbox" id="ironing">Глажка белья (ч.)</label><div class="step sm"><button type="button" class="calc-minus" data-count="ironing" aria-label="Меньше">−</button><input class="calc-input" data-count="ironing" type="number" value="0" min="0" aria-label="Часы"><button type="button" class="calc-plus" data-count="ironing" aria-label="Больше">+</button></div></div>
@@ -52,6 +52,10 @@
 <div class="k">Тип уборки<b data-out="type">Поддерживающая</b></div>
 <div class="k">Количество часов:<b><span data-out="hours">2-3</span>&nbsp;ч</b></div>
 <div class="k">Количество клинеров:<b><span data-out="workers">1</span>&nbsp;чел</b></div>
+<div class="calc-picked" data-selection hidden>
+<div class="calc-picked__title">Выбрано</div>
+<ul class="calc-picked__list" data-out="selection"></ul>
+</div>
 <div class="k" style="border-bottom: 0"><button type="button" class="info-toggle" aria-expanded="false" aria-controls="calcInfo">Что входит ⓘ</button></div>
 <div class="info-box" id="calcInfo" data-out="info" hidden></div>
 <div class="total"><small>от</small>&nbsp;<span data-out="price">4000</span>&nbsp;<small>₽</small></div>
