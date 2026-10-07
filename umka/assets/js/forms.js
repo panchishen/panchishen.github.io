@@ -83,7 +83,7 @@
     sofa: 'Диван', chair: 'Стулья/Офисные кресла', armchair: 'Кресло', pillow: 'Подушка'
   };
 
-  // id of checkbox -> [data-count of quantity input, price per unit, name, unit]
+  // id of quantity input -> [data-count, price per unit, name, unit]
   var EXTRAS_COUNTED = {
     hourlyCleaner: ['hourly-cleaner', 1500, 'Почасовая работа клинера', 'ч'],
     ironing: ['ironing', 1500, 'Глажка белья', 'ч'],
@@ -95,11 +95,12 @@
     trash: ['trash', 6000, 'Вывоз мусора', 'м³']
   };
 
-  // id of checkbox -> [share of base price, name]
+  // id of quantity input -> [data-count, share of base price, name]; the share is applied
+  // to the chosen area (the whole apartment = the full share, as on the site)
   var EXTRAS_RATE = {
-    animalHair: [0.15, 'Уборка шерсти животных'],
-    vipCleaning: [0.5, 'VIP уборка'],
-    nightCleaning: [1, 'Ночная уборка']
+    animalHair: ['animal-hair', 0.15, 'Уборка шерсти животных'],
+    vipCleaning: ['vip-cleaning', 0.5, 'VIP уборка'],
+    nightCleaning: ['night-cleaning', 1, 'Ночная уборка']
   };
 
   var CLEANING_INFO = {
@@ -161,14 +162,21 @@
     }, 0);
   }
 
+  function rateArea(id) {
+    // area for a rate-based extra, never more than the apartment itself
+    var square = Math.max(1, toInt($('#cleaningSquare').value));
+    return Math.min(toInt(countInput(EXTRAS_RATE[id][0]).value), square);
+  }
+
   function calculateExtras(basePrice) {
     var price = 0;
     Object.keys(EXTRAS_COUNTED).forEach(function (id) {
       var cfg = EXTRAS_COUNTED[id];
-      if ($('#' + id).checked) price += toInt(countInput(cfg[0]).value) * cfg[1];
+      price += toInt(countInput(cfg[0]).value) * cfg[1];
     });
     Object.keys(EXTRAS_RATE).forEach(function (id) {
-      if ($('#' + id).checked) price += basePrice * EXTRAS_RATE[id][0];
+      var square = Math.max(1, toInt($('#cleaningSquare').value));
+      price += basePrice * EXTRAS_RATE[id][1] * rateArea(id) / square;
     });
     return price;
   }
@@ -197,10 +205,11 @@
     var extras = [];
     Object.keys(EXTRAS_COUNTED).forEach(function (id) {
       var cfg = EXTRAS_COUNTED[id], qty = toInt(countInput(cfg[0]).value);
-      if ($('#' + id).checked && qty > 0) extras.push(cfg[2] + ' — ' + qty + ' ' + cfg[3]);
+      if (qty > 0) extras.push(cfg[2] + ' — ' + qty + ' ' + cfg[3]);
     });
     Object.keys(EXTRAS_RATE).forEach(function (id) {
-      if ($('#' + id).checked) extras.push(EXTRAS_RATE[id][1]);
+      var area = rateArea(id);
+      if (area > 0) extras.push(EXTRAS_RATE[id][2] + ' — ' + area + ' м²');
     });
     if (extras.length) groups.push({ id: 'calcExtra', title: 'Дополнительно', items: extras });
     return groups;
@@ -238,6 +247,13 @@
 
   function calculate() {
     if (!$('#cleaningSquare')) return;
+    // rate-based extras can't cover more than the apartment area
+    var squareMax = Math.max(1, toInt($('#cleaningSquare').value));
+    Object.keys(EXTRAS_RATE).forEach(function (id) {
+      var input = countInput(EXTRAS_RATE[id][0]);
+      input.max = squareMax;
+      if (toInt(input.value) > squareMax) input.value = squareMax;
+    });
     var base = getBaseCleaning();
     var total = Math.round(base.price + calculateWindows() + calculateDryCleaning() + calculateExtras(base.price));
     var type = selectedType();
@@ -268,10 +284,11 @@
     if (dry.length) lines.push('Химчистка - ' + dry.join(', '));
     Object.keys(EXTRAS_COUNTED).forEach(function (id) {
       var cfg = EXTRAS_COUNTED[id], qty = toInt(countInput(cfg[0]).value);
-      if ($('#' + id).checked && qty > 0) lines.push(cfg[2] + ' - ' + qty + ' ' + cfg[3]);
+      if (qty > 0) lines.push(cfg[2] + ' - ' + qty + ' ' + cfg[3]);
     });
     Object.keys(EXTRAS_RATE).forEach(function (id) {
-      if ($('#' + id).checked) lines.push(EXTRAS_RATE[id][1]);
+      var area = rateArea(id);
+      if (area > 0) lines.push(EXTRAS_RATE[id][2] + ' - ' + area + ' м²');
     });
     lines.push('Итого: ' + lastResult.total + ' ₽');
     return lines.join(';\n');
@@ -293,19 +310,17 @@
       }
     }
     if (value < min) value = min;
+    if (input.max !== '' && value > toInt(input.max)) value = toInt(input.max);
     input.value = value;
     afterCounterChange(input);
   }
 
   function afterCounterChange(input) {
-    // a quantity above zero switches its extra service on
-    var row = input.closest('.ext-row');
-    if (row) {
-      var cb = $('input[type=checkbox]', row);
-      if (cb) cb.checked = toInt(input.value) > 0;
-    }
+    var min = toInt(input.min);
+    if (input.value !== '' && toInt(input.value) < min) input.value = min;
     calculate();
   }
+
 
   function initCalculator(root) {
     root.addEventListener('click', function (e) {
@@ -343,8 +358,7 @@
     });
 
     root.addEventListener('input', function (e) {
-      if (e.target.matches('.ext-row input.calc-input')) afterCounterChange(e.target);
-      else calculate();
+      calculate();
     });
     root.addEventListener('change', calculate);
     calculate();
