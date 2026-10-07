@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Умка — редизайн главной</title>
+<script>
+  (function () {
+    var allowed = { v1: 1, v5: 1 };
+    var fromQuery = new URLSearchParams(window.location.search).get('v');
+    var saved = null;
+    try { saved = localStorage.getItem('umka-version'); } catch (e) {}
+    var version = allowed[fromQuery] ? fromQuery : (allowed[saved] ? saved : 'v1');
+    window.location.replace(version + '/' + window.location.hash);
+  })();
+</script>
+<style>body{margin:0;font-family:system-ui,sans-serif;background:#F4F6FB;color:#0E1A3A;display:flex;min-height:100vh;align-items:center;justify-content:center}a{color:#2B58D9;margin:0 8px}</style>
+</head>
+<body>
+<p>Умка — редизайн главной: <a href="v1/">вариант 1</a> <a href="v5/">вариант 5</a></p>
+</body>
+</html>
