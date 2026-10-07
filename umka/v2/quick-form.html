@@ -1,6 +1,16 @@
 <form class="qc" data-quick-form>
 <label>Площадь, м²<input type="number" name="square" value="40" min="1" inputmode="numeric" data-quick="square"></label>
-<label>Тип уборки<select name="cleaningType" data-quick="type"><option value="support">Поддерживающая</option><option value="general">Генеральная</option><option value="postrenovation_new">После ремонта (новая квартира)</option><option value="postrenovation_lived">После ремонта (ранее жилая квартира)</option></select></label>
+<div class="qc-dd" data-dropdown>
+<span class="qc-dd__cap" id="qfTypeLabel">Тип уборки</span>
+<button type="button" class="qc-dd__btn" aria-haspopup="listbox" aria-expanded="false" aria-controls="qfTypeList" aria-labelledby="qfTypeLabel qfTypeValue"><span class="qc-dd__value" id="qfTypeValue" data-dropdown-value>Поддерживающая</span></button>
+<ul class="qc-dd__list" id="qfTypeList" role="listbox" tabindex="-1" aria-labelledby="qfTypeLabel">
+<li role="option" class="qc-dd__opt" data-value="support" aria-selected="true">Поддерживающая</li>
+<li role="option" class="qc-dd__opt" data-value="general" aria-selected="false">Генеральная</li>
+<li role="option" class="qc-dd__opt" data-value="postrenovation_new" aria-selected="false">После ремонта (новая квартира)</li>
+<li role="option" class="qc-dd__opt" data-value="postrenovation_lived" aria-selected="false">После ремонта (ранее жилая квартира)</li>
+</ul>
+<input type="hidden" name="quickCleaningType" value="support" data-quick="type">
+</div>
 <button class="btn bc" type="submit" style="min-height: 64px">Заказать клининг</button>
 </form>
 <div style="margin-top: 18px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; align-items: center"><span class="mut" style="font-size: 15px">от&nbsp;<span data-out="price">4000</span>&nbsp;₽ · <span data-out="hours">2-3</span>&nbsp;ч · <span data-out="workers">1</span>&nbsp;клинер</span><a href="#order" data-order="consult" style="font-weight: 600">Консультация →</a></div>

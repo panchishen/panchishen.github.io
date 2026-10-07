@@ -373,7 +373,81 @@
     if (!form || syncing) return;
     var sq = $('[data-quick="square"]', form), type = $('[data-quick="type"]', form);
     if (document.activeElement !== sq) sq.value = $('#cleaningSquare').value;
-    type.value = selectedType();
+    setDropdownValue($('[data-dropdown]', form), selectedType(), false);
+  }
+
+  /* Custom dropdown (listbox) — keyboard: arrows, Home/End, Enter/Space, Esc */
+
+  function setDropdownValue(dd, value, notify) {
+    if (!dd) return;
+    var input = $('input[type=hidden]', dd);
+    var chosen = null;
+    $all('[role=option]', dd).forEach(function (opt) {
+      var on = opt.getAttribute('data-value') === value;
+      opt.setAttribute('aria-selected', on);
+      if (on) chosen = opt;
+    });
+    if (!chosen) return;
+    $('[data-dropdown-value]', dd).textContent = chosen.textContent;
+    if (input.value !== value) {
+      input.value = value;
+      if (notify) input.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+  }
+
+  function initDropdown(dd) {
+    var button = $('.qc-dd__btn', dd);
+    var list = $('[role=listbox]', dd);
+    var options = $all('[role=option]', dd);
+    var active = -1;
+
+    options.forEach(function (opt, i) { opt.id = list.id + '-' + i; });
+
+    function highlight(i) {
+      active = Math.max(0, Math.min(options.length - 1, i));
+      options.forEach(function (opt, k) { opt.classList.toggle('is-active', k === active); });
+      list.setAttribute('aria-activedescendant', options[active].id);
+    }
+    function open() {
+      dd.setAttribute('data-open', '');
+      button.setAttribute('aria-expanded', 'true');
+      var current = options.findIndex(function (o) { return o.getAttribute('aria-selected') === 'true'; });
+      highlight(current < 0 ? 0 : current);
+      list.focus({ preventScroll: true });
+    }
+    function close(returnFocus) {
+      if (!dd.hasAttribute('data-open')) return;
+      dd.removeAttribute('data-open');
+      button.setAttribute('aria-expanded', 'false');
+      if (returnFocus) button.focus({ preventScroll: true });
+    }
+    function choose(i) {
+      setDropdownValue(dd, options[i].getAttribute('data-value'), true);
+      close(true);
+    }
+
+    button.addEventListener('click', function () {
+      if (dd.hasAttribute('data-open')) close(true); else open();
+    });
+    button.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); open(); }
+    });
+    list.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowDown') { e.preventDefault(); highlight(active + 1); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); highlight(active - 1); }
+      else if (e.key === 'Home') { e.preventDefault(); highlight(0); }
+      else if (e.key === 'End') { e.preventDefault(); highlight(options.length - 1); }
+      else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); choose(active); }
+      else if (e.key === 'Escape') { e.preventDefault(); close(true); }
+      else if (e.key === 'Tab') { close(false); }
+    });
+    options.forEach(function (opt, i) {
+      opt.addEventListener('mousemove', function () { if (active !== i) highlight(i); });
+      opt.addEventListener('click', function () { choose(i); });
+    });
+    document.addEventListener('pointerdown', function (e) {
+      if (!dd.contains(e.target)) close(false);
+    });
   }
 
   function initQuickForm(form) {
@@ -388,6 +462,8 @@
       calculate();
       syncing = false;
     }
+    var dd = $('[data-dropdown]', form);
+    if (dd) initDropdown(dd);
     form.addEventListener('input', push);
     form.addEventListener('change', push);
     form.addEventListener('submit', function (e) {
