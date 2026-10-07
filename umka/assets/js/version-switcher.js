@@ -4,7 +4,7 @@
 
   var VERSIONS = [
     { id: 'v1', label: 'Вариант 1' },
-    { id: 'v5', label: 'Вариант 5' }
+    { id: 'v5', label: 'Вариант 2' }
   ];
   var STORAGE_KEY = 'umka-version';
 
@@ -19,11 +19,6 @@
   var nav = document.createElement('nav');
   nav.className = 'version-switcher';
   nav.setAttribute('aria-label', 'Версия дизайна');
-
-  var title = document.createElement('span');
-  title.className = 'version-switcher__title';
-  title.textContent = 'Версия';
-  nav.appendChild(title);
 
   VERSIONS.forEach(function (v) {
     var link = document.createElement('a');
