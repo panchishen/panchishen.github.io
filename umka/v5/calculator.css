@@ -42,3 +42,7 @@
 .qc select{padding-right:44px}
 .qc input:focus,.qc select:focus,.qc input:focus-visible,.qc select:focus-visible{outline:none;box-shadow:none}
 .qc label:has(select)::after{content:"";position:absolute;right:22px;top:50%;width:8px;height:8px;border-right:2px solid #10264A;border-bottom:2px solid #10264A;transform:translateY(-30%) rotate(45deg);pointer-events:none}
+/* tabs: badge hidden when nothing is chosen, label stays on one line */
+.sec-badge[hidden]{display:none}
+.seg button{display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.seg .sec-badge{margin-left:0;vertical-align:baseline}
