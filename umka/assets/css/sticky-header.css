@@ -1,0 +1,9 @@
+/* Sticky header: the main header row sticks to the top, the thin contacts bar scrolls away */
+.site-header{position:sticky;top:0;z-index:50;transition:box-shadow 200ms ease,background-color 200ms ease}
+body[data-version="v1"] .site-header{background:#fff}
+body[data-version="v2"] .site-header{background:rgba(238,245,251,.92);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+html.is-scrolled .site-header{box-shadow:0 1px 0 rgba(16,38,74,.06),0 10px 30px -18px rgba(16,38,74,.35)}
+/* anchors land below the sticky header */
+section[id],footer[id]{scroll-margin-top:96px}
+/* overflow:hidden on an ancestor breaks position:sticky; clip keeps the same guard against sideways scroll */
+.p{overflow-x:clip}
