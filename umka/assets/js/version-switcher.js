@@ -4,7 +4,7 @@
 
   var VERSIONS = [
     { id: 'v1', label: 'Вариант 1' },
-    { id: 'v5', label: 'Вариант 2' }
+    { id: 'v2', label: 'Вариант 2' }
   ];
   var STORAGE_KEY = 'umka-version';
 

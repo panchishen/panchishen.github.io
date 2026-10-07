@@ -1,6 +1,6 @@
 /* Order form modal — shared by all versions */
 body[data-version="v1"]{--of-font:'Onest',system-ui,sans-serif;--of-ink:#0E1A3A;--of-muted:#4A5778;--of-line:#E3E8F3;--of-accent:#2B58D9;--of-cta:#FFB020;--of-cta-hover:#FFC24D;--of-cta-ink:#0E1A3A;--of-radius:20px;--of-field:#F4F6FB}
-body[data-version="v5"]{--of-font:'Golos Text',system-ui,sans-serif;--of-ink:#10264A;--of-muted:#4F6584;--of-line:#DCE8F3;--of-accent:#2B58D9;--of-cta:#FFD84D;--of-cta-hover:#FFCB1F;--of-cta-ink:#10264A;--of-radius:28px;--of-field:#F4F8FC}
+body[data-version="v2"]{--of-font:'Golos Text',system-ui,sans-serif;--of-ink:#10264A;--of-muted:#4F6584;--of-line:#DCE8F3;--of-accent:#2B58D9;--of-cta:#FFD84D;--of-cta-hover:#FFCB1F;--of-cta-ink:#10264A;--of-radius:28px;--of-field:#F4F8FC}
 .order-modal{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:16px;font-family:var(--of-font)}
 .order-modal[hidden]{display:none}
 .order-backdrop{position:absolute;inset:0;background:rgba(10,20,50,.55)}
